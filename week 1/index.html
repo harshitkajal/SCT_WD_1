@@ -1,0 +1,288 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Interactive Navigation Menu - Professional Style</title>
+<!-- Google Fonts: Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* Reset and base styles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 2000px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #222;
+  }
+
+  /* Navigation bar */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    padding: 0 40px;
+    box-sizing: border-box;
+    transition:
+      background-color 0.4s ease,
+      box-shadow 0.4s ease,
+      backdrop-filter 0.4s ease;
+    z-index: 1000;
+    backdrop-filter: saturate(180%) blur(15px);
+  }
+
+  nav.scrolled {
+    background: linear-gradient(90deg, #283e51 0%, #485563 100%);
+    box-shadow: 0 4px 15px rgba(40, 62, 81, 0.4);
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+
+  .nav-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Logo */
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #ff6f61, #de4313);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    user-select: none;
+    letter-spacing: 1.5px;
+    cursor: default;
+    white-space: nowrap;
+    text-shadow: 0 0 7px rgba(255, 111, 97, 0.6);
+  }
+
+  /* Menu */
+  ul.menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 28px;
+  }
+
+  ul.menu li {
+    position: relative;
+  }
+
+  ul.menu li .menu-item {
+    font-size: 1.05rem;
+    padding: 7px 14px;
+    color: #d9d9d9;
+    font-weight: 600;
+    border-radius: 5px;
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
+    user-select: none;
+    letter-spacing: 0.02em;
+    cursor: default;
+    display: inline-block;
+  }
+
+  ul.menu li .menu-item:hover,
+  ul.menu li .menu-item:focus {
+    color: #ff6f61;
+    background-color: rgba(255, 111, 97, 0.15);
+    box-shadow: 0 0 10px rgba(255, 111, 97, 0.35);
+    outline: none;
+  }
+
+  ul.menu li .menu-item::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 20%;
+    width: 0%;
+    height: 3px;
+    background: #ff6f61;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  ul.menu li .menu-item:hover::after,
+  ul.menu li .menu-item:focus::after {
+    width: 60%;
+  }
+
+  /* Responsive Hamburger Menu */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    width: 26px;
+    height: 20px;
+  }
+
+  .hamburger div {
+    background: #ff6f61;
+    height: 3px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .hamburger.open div:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.open div:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open div:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Mobile menu */
+  @media (max-width: 800px) {
+    ul.menu {
+      position: fixed;
+      top: 65px;
+      right: 0;
+      flex-direction: column;
+      background: linear-gradient(135deg, #e96443, #904e95);
+      padding: 35px 30px;
+      width: 240px;
+      height: calc(100vh - 65px);
+      gap: 22px;
+      border-radius: 0 0 0 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+      transform: translateX(110%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+      z-index: 1200;
+    }
+
+    ul.menu.open {
+      transform: translateX(0);
+    }
+
+    ul.menu li .menu-item {
+      font-size: 1.3rem;
+      color: #fce8e6;
+      cursor: default;
+    }
+
+    ul.menu li .menu-item:hover,
+    ul.menu li .menu-item:focus {
+      background-color: rgba(252, 230, 230, 0.25);
+      box-shadow: 0 0 18px rgba(252, 230, 230, 0.8);
+      color: #fff;
+      outline: none;
+    }
+
+    nav {
+      padding: 0 20px;
+    }
+
+    .hamburger {
+      display: flex;
+      z-index: 1300;
+    }
+  }
+
+  /* Content styles */
+  .content {
+    padding: 110px 20px 40px;
+    max-width: 900px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.65;
+    color: #323232;
+  }
+
+  h1, h2 {
+    color: #4a3f35;
+    margin-bottom: 0.3em;
+  }
+
+  p {
+    margin-bottom: 1.2em;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar" role="navigation" aria-label="Primary Navigation">
+  <div class="nav-container">
+    <div class="logo" tabindex="0">MyBrand</div>
+    <ul class="menu" role="menubar" aria-label="Primary Navigation Menu">
+      <li role="none"><div tabindex="0" class="menu-item" role="menuitem">Home</div></li>
+      <li role="none"><div tabindex="0" class="menu-item" role="menuitem">About Us</div></li>
+      <li role="none"><div tabindex="0" class="menu-item" role="menuitem">Services</div></li>
+      <li role="none"><div tabindex="0" class="menu-item" role="menuitem">Expertise</div></li>
+      <li role="none"><div tabindex="0" class="menu-item" role="menuitem">Contact</div></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-menu">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+  </div>
+</nav>
+
+<div class="content">
+  <h1>Welcome to MyBrand</h1>
+  <p>At MyBrand, we deliver exceptional digital experiences crafted for clients who seek elegance, innovation, and sophistication.</p>
+
+  <h2>About Us</h2>
+  <p>We blend refined design aesthetics with advanced technology to create bespoke solutions that amplify your brand’s uniqueness and influence.</p>
+
+  <h2>Services</h2>
+  <p>Offering premium web design, bespoke development strategies, strategic consulting, and personalized support tailored to your vision and goals.</p>
+
+  <h2>Expertise</h2>
+  <p>Our elite team integrates years of cross-industry experience, delivering innovative, seamless, and impactful digital solutions.</p>
+
+  <h2>Contact</h2>
+  <p>Connect with us to discover how MyBrand can elevate your digital presence with unparalleled craftsmanship and attentive service.</p>
+</div>
+
+<script>
+  (function(){
+    const navbar = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.querySelector('ul.menu');
+
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    const toggleMenu = () => {
+      const isOpen = hamburger.classList.toggle('open');
+      menu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    };
+
+    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMenu();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
+
